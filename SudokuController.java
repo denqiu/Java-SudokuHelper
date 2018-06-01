@@ -29,7 +29,7 @@ import javax.swing.event.DocumentListener;
  * This class models a game controller of the SudokuGame.
  * @author BrittanyPrice, DennisQiu
  */                                         
-public class SudokuController implements ActionListener, DocumentListener, FocusListener, KeyListener, 
+public class SudokuController implements ActionListener, FocusListener, KeyListener, 
 					MouseListener, MouseMotionListener {
 
 	private static String resourcesFolder = "Resources.";
