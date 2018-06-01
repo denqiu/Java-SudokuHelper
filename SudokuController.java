@@ -43,6 +43,8 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	private String stringHints = "";
 	private String stringPuzzle = "";
 	
+	private static Border blackBorder = new LineBorder(Color.BLACK);
+	
 	ArrayList<Integer> availableHints = new ArrayList<Integer>(9);
 	
 	/**
@@ -394,7 +396,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -409,9 +410,11 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 			for (int j = 0; j < 9; j++) {	
 				blockNumber = getBlockPosition(j, i);
 				index = blockNumber % 2;
-
+				
+				cursorCell.setBackground(Color.PINK);
+				cursorCell.setBorder(blackBorder);
+				
 				if (SudokuBoard.allCells[i][j].isEnabled() == true) {
-					cursorCell.setBackground(Color.PINK);
 					if (SudokuBoard.allCells[i][j].getBackground().equals(Color.PINK)) {
 						if (index == 0) 
 							SudokuBoard.allCells[i][j].setBackground(Color.WHITE);
@@ -419,11 +422,9 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 							SudokuBoard.allCells[i][j].setBackground(Color.YELLOW);
 					}
 				}
-				else if (SudokuBoard.allCells[i][j].isEnabled() == false) {
-					cursorCell.setBackground(Color.MAGENTA);
+				else 
 					if (SudokuBoard.allCells[i][j].getBackground().equals(Color.PINK)) 
 						SudokuBoard.allCells[i][j].setBackground(Color.MAGENTA);
-				}
 			}
 		}
 	}
