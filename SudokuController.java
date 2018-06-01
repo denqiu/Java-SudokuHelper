@@ -128,6 +128,7 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 					SudokuBoard.allCells[i][j].setCellValue(0);
 					SudokuBoard.allCells[i][j].setText(" ");
 					SudokuBoard.allCells[i][j].setBackground(boardColors[index]);
+					SudokuBoard.allCells[i][j].setBorder(blackBorder);
 					SudokuBoard.allCells[i][j].setEditable(true);
 				}
 			}
@@ -174,10 +175,10 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	            if (match.find()) {
 	            	if (getFile.endsWith(".txt")) {
 	            		int fileNumber = Integer.parseInt(match.group());
-						stringPuzzle = Integer.toString(fileNumber);
+				stringPuzzle = Integer.toString(fileNumber);
 	            	}
 	            	else 
-						stringPuzzle = "This is not a puzzle. Please choose a puzzle.";
+				stringPuzzle = "This is not a puzzle. Please choose a puzzle.";
 	    		}
             	SudokuBoard.puzzleNumber.setText(stringPuzzle);	
 	        }
