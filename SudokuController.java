@@ -43,11 +43,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	private String stringHints = "";
 	private String stringPuzzle = "";
 	
-	private static Color darkGreen = new Color(0,100,0);
-	private static Border blackBorder = new LineBorder(Color.BLACK);
-	private static Border greenBorder = new LineBorder(darkGreen, 3);
-	private static Border blueBorder = new LineBorder(Color.BLUE, 3);
-	
 	ArrayList<Integer> availableHints = new ArrayList<Integer>(9);
 	
 	/**
@@ -97,11 +92,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	 * Clears the SudokuGame board, resetting any placements or color changes during the game.
 	 */
 	public static void clearBoard() {
-		/*Color[] randomBoard = {Color.BLUE, Color.CYAN, Color.GREEN, Color.YELLOW, Color.MAGENTA, 
-				Color.ORANGE, Color.RED};
-		Color myRandomBoard = randomBoard[randomBoard.length];
-		
-		Color[] boardColors= {Color.WHITE, myRandomBoard};*/
 		Color[] boardColors = {Color.WHITE, Color.YELLOW};
 		int blockNumber; 
 		int index;
@@ -124,11 +114,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	 * Restarts the SudokuGame board, resets the puzzle back to the original puzzle that was opened.
 	 */
 	public static void restartBoard() {
-		/*Color[] randomBoard = {Color.BLUE, Color.CYAN, Color.GREEN, Color.YELLOW, Color.MAGENTA, 
-		Color.ORANGE, Color.RED};
-		Color myRandomBoard = randomBoard[randomBoard.length];
-
-		Color[] boardColors= {Color.WHITE, myRandomBoard};*/
 		Color[] boardColors = {Color.WHITE, Color.YELLOW};
 		int blockNumber; 
 		int index;
@@ -141,7 +126,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 					SudokuBoard.allCells[i][j].setCellValue(0);
 					SudokuBoard.allCells[i][j].setText(" ");
 					SudokuBoard.allCells[i][j].setBackground(boardColors[index]);
-					SudokuBoard.allCells[i][j].setBorder(blackBorder);
 					SudokuBoard.allCells[i][j].setEditable(true);
 				}
 			}
@@ -292,8 +276,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 		currentCell = null;
 		typedCell = null;
 		stringHints = "";
-		if (typedCell != null && currentCell == null)
-			stringHints = "Winner!";
 		SudokuBoard.hints.setText(stringHints);
 	}
 
@@ -318,7 +300,7 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	}
 
 	/**
-	 * Switches between colors YELLOW and CYAN while inside a block of YELLOW cells.
+	 * Gains a random color.
 	 */
 	@Override
 	public void focusGained(FocusEvent arg0) {
@@ -339,7 +321,7 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	}
 
 	/**
-	 * Switches between colors WHITE and GREEN while inside a block of WHITE cells.
+	 * Loses a random color.
 	 */
 	@Override
 	public void focusLost(FocusEvent arg0) {
@@ -366,14 +348,14 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 
 	/**
 	 * Performs the various actions whenever a typed key is released on the SudokuGame board.
-	 * Successfully executes the back space key on any cell that is not colored pink, or if 
+	 * Successfully executes the back space key on any cell that is not colored magenta, or if 
 	 * the cell was empty to begin with.
 	 * Ensures that the numbers in each pink cell will not be deleted when the BACK SPACE key
 	 * is pressed.
 	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		try { //back space on any cell that does not have a pink background
+		try { //back space on any cell that does not have a magenta background
 			if (arg0.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 				if (currentCell.getBackground() != Color.MAGENTA) {
 					if (currentCell.getCellValue() > 0) {
@@ -410,24 +392,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 	}
 
 	@Override
-	public void changedUpdate(DocumentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void insertUpdate(DocumentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeUpdate(DocumentEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
@@ -448,7 +412,6 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 
 				if (SudokuBoard.allCells[i][j].isEnabled() == true) {
 					cursorCell.setBackground(Color.PINK);
-					cursorCell.setBorder(blackBorder);
 					if (SudokuBoard.allCells[i][j].getBackground().equals(Color.PINK)) {
 						if (index == 0) 
 							SudokuBoard.allCells[i][j].setBackground(Color.WHITE);
@@ -458,14 +421,9 @@ public class SudokuController implements ActionListener, FocusListener, KeyListe
 				}
 				else if (SudokuBoard.allCells[i][j].isEnabled() == false) {
 					cursorCell.setBackground(Color.MAGENTA);
-					cursorCell.setBorder(blackBorder);
 					if (SudokuBoard.allCells[i][j].getBackground().equals(Color.PINK)) 
 						SudokuBoard.allCells[i][j].setBackground(Color.MAGENTA);
 				}
-				if (SudokuBoard.allCells[i][j].isEnabled() == false &&
-						SudokuBoard.blocks[i].isEnabled() == false)
-					stringHints = "Winner";
-				SudokuBoard.hints.setText(stringHints);
 			}
 		}
 	}
